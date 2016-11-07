@@ -21,9 +21,9 @@ public class PlayerController : MonoBehaviour {
 
         anim.SetBool("Left", false);
         anim.SetBool("Right", false);
-        anim.SetBool("Up", false);
-        anim.SetBool("Down", true);
-        anim.SetBool("Moving", false);
+        anim.SetBool("Back", false);
+        anim.SetBool("Front", true);
+        anim.SetBool("Walking", false);
         anim.SetBool("Holding", false);
     }
 	
@@ -55,9 +55,9 @@ public class PlayerController : MonoBehaviour {
             rigid.velocity = new Vector3(rigid.velocity.x,0,0);
             anim.SetBool("Left", false);
             anim.SetBool("Right", true);
-            anim.SetBool("Up", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Moving", true);
+            anim.SetBool("Back", false);
+            anim.SetBool("Front", false);
+            anim.SetBool("Walking", true);
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
@@ -65,9 +65,9 @@ public class PlayerController : MonoBehaviour {
             rigid.velocity = new Vector3(rigid.velocity.x, 0, 0);
             anim.SetBool("Left", true);
             anim.SetBool("Right", false);
-            anim.SetBool("Up", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Moving", true);
+            anim.SetBool("Back", false);
+            anim.SetBool("Front", false);
+            anim.SetBool("Walking", true);
         }
         else if (Input.GetAxis("Vertical") > 0)
         {
@@ -75,9 +75,9 @@ public class PlayerController : MonoBehaviour {
             rigid.velocity = new Vector3(0, rigid.velocity.y, 0);
             anim.SetBool("Left", false);
             anim.SetBool("Right", false);
-            anim.SetBool("Up", true);
-            anim.SetBool("Down", false);
-            anim.SetBool("Moving", true);
+            anim.SetBool("Back", true);
+            anim.SetBool("Front", false);
+            anim.SetBool("Walking", true);
         }
         else if (Input.GetAxis("Vertical") < 0)
         {
@@ -85,17 +85,13 @@ public class PlayerController : MonoBehaviour {
             rigid.velocity = new Vector3(0, rigid.velocity.y, 0);
             anim.SetBool("Left", false);
             anim.SetBool("Right", false);
-            anim.SetBool("Up", false);
-            anim.SetBool("Down", true);
-            anim.SetBool("Moving", true);
+            anim.SetBool("Back", false);
+            anim.SetBool("Front", true);
+            anim.SetBool("Walking", true);
         }
         else
         {
-            anim.SetBool("Left", false);
-            anim.SetBool("Right", false);
-            anim.SetBool("Up", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Moving", false);
+            anim.SetBool("Walking", false);
             return false;
         }
         return true;

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 78155bcfa11e4984792dfb17874d8746
-timeCreated: 1478371133
+timeCreated: 1478549995
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -31,7 +31,7 @@ TextureImporter:
     21300048: PlayerWalkingBack0
     21300050: PlayerWalkingBack1
     21300052: PlayerWalkingHoldingBack0
-    21300054: TOE MAN SPRITE SHEET 001_27
+    21300054: PlayerWalkingHoldingBack1
     21300056: Player
     21300058: PlayerStandingfront2
   serializedVersion: 2
@@ -434,7 +434,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: TOE MAN SPRITE SHEET 001_27
+      name: PlayerWalkingHoldingBack1
       rect:
         serializedVersion: 2
         x: 2943
