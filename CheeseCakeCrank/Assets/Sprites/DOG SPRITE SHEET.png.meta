@@ -1,10 +1,25 @@
 fileFormatVersion: 2
 guid: 6f57be2ade1fd684785495c35de72de3
-timeCreated: 1478372368
+timeCreated: 1478556333
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: DOG SPRITE SHEET_0
+    21300002: DOG SPRITE SHEET_1
+    21300004: DOG SPRITE SHEET_2
+    21300006: DOG SPRITE SHEET_3
+    21300008: DOG SPRITE SHEET_4
+    21300010: DOG SPRITE SHEET_5
+    21300012: DOG SPRITE SHEET_6
+    21300014: DOG SPRITE SHEET_7
+    21300016: DOG SPRITE SHEET_8
+    21300018: DOG SPRITE SHEET_9
+    21300020: DOG SPRITE SHEET_10
+    21300022: DOG SPRITE SHEET_11
+    21300024: DOG SPRITE SHEET_12
+    21300026: DOG SPRITE SHEET_13
+    21300028: DOG SPRITE SHEET_14
+    21300030: DOG SPRITE SHEET_15
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -57,12 +72,207 @@ TextureImporter:
       name: DOG SPRITE SHEET_0
       rect:
         serializedVersion: 2
-        x: 134
-        y: 1758
-        width: 694
-        height: 500
+        x: 172
+        y: 1761
+        width: 659
+        height: 486
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_1
+      rect:
+        serializedVersion: 2
+        x: 879
+        y: 1763
+        width: 599
+        height: 482
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_2
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 1744
+        width: 653
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_3
+      rect:
+        serializedVersion: 2
+        x: 2413
+        y: 1745
+        width: 609
+        height: 473
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_4
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 1214
+        width: 599
+        height: 482
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_5
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 1212
+        width: 659
+        height: 486
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_6
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 1216
+        width: 609
+        height: 474
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_7
+      rect:
+        serializedVersion: 2
+        x: 2296
+        y: 1214
+        width: 654
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_8
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 684
+        width: 656
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_9
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 687
+        width: 612
+        height: 478
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_10
+      rect:
+        serializedVersion: 2
+        x: 1759
+        y: 676
+        width: 620
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_11
+      rect:
+        serializedVersion: 2
+        x: 2463
+        y: 680
+        width: 644
+        height: 477
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_12
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 150
+        width: 612
+        height: 478
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_13
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 148
+        width: 656
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_14
+      rect:
+        serializedVersion: 2
+        x: 1672
+        y: 164
+        width: 644
+        height: 477
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: DOG SPRITE SHEET_15
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 159
+        width: 620
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
