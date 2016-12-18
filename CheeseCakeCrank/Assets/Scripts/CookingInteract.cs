@@ -34,6 +34,10 @@ public class CookingInteract : MonoBehaviour {
                 {
                     interactionTimer.StartTimer(prop.GetTimer());
                     GetComponent<PlayerController>().setInteracting(true);
+
+                    GetComponent<PlayerController>().SetHolding(false);
+
+                    GetComponent<Inventory>().RemoveItem();
                 }
             }
         }
