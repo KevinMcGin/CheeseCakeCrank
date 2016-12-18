@@ -107,4 +107,9 @@ public class PlayerController : MonoBehaviour {
         interacting = i;
     }
 
+    public void SetHolding(bool holding)
+    {
+        anim.SetBool("Holding", holding);
+    }
+
 }

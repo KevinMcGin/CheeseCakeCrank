@@ -10,6 +10,9 @@ public class CookingProp : MonoBehaviour {
 
     public string[] itemsReturn;
 
+    protected bool used = false;
+    protected bool inUse = false;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -29,6 +32,10 @@ public class CookingProp : MonoBehaviour {
 
     public bool Interact(ref List<string> items)
     {
+        if(used)
+        {
+            return false;
+        }
         for(int i = 0; i < itemsNeeded.Length; i++)
         {
             if(!items.Contains(itemsNeeded[i]))
@@ -40,6 +47,7 @@ public class CookingProp : MonoBehaviour {
         {
             items.Remove(itemsNeeded[i]);
         }
+        inUse = true;
         return true;
     }
 
@@ -47,7 +55,13 @@ public class CookingProp : MonoBehaviour {
     {
         for (int i = 0; i < itemsReturn.Length; i++)
         {
-            items.Add(itemsReturn[i]);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>().PickUpItem(itemsReturn[i]);
         }
+        used = true;
+        inUse = false;
+
+        ChildFinish();
     }
+
+    protected virtual void ChildFinish() { }
 }

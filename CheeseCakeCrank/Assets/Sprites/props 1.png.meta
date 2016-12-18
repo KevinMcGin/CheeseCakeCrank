@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: db48e44a7dc81f24e8991a9576edc4b0
-timeCreated: 1478367091
+timeCreated: 1482073678
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -43,7 +43,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -62,7 +62,12 @@ TextureImporter:
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  buildTargetSettings:
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -2
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -70,8 +75,8 @@ TextureImporter:
       name: props 1_0
       rect:
         serializedVersion: 2
-        x: 26
-        y: 816
+        x: 28
+        y: 814
         width: 177
         height: 165
       alignment: 0
@@ -87,8 +92,8 @@ TextureImporter:
         y: 814
         width: 192
         height: 175
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.49999967, y: 0.47553292}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -135,12 +140,12 @@ TextureImporter:
       name: props 1_5
       rect:
         serializedVersion: 2
-        x: 246
+        x: 244
         y: 600
         width: 75
         height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.49999958, y: 0.45539856}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -152,8 +157,8 @@ TextureImporter:
         y: 587
         width: 70
         height: 130
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5305836, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -213,12 +218,12 @@ TextureImporter:
       name: props 1_11
       rect:
         serializedVersion: 2
-        x: 563
+        x: 569
         y: 92
         width: 124
         height: 116
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.51726407, y: 0.48154396}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -227,11 +232,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 711
-        y: 96
+        y: 98
         width: 122
         height: 122
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.4999995, y: 0.4649044}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -239,12 +244,12 @@ TextureImporter:
       name: props 1_13
       rect:
         serializedVersion: 2
-        x: 859
-        y: 101
+        x: 855
+        y: 103
         width: 113
         height: 115
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.51894575, y: 0.5186164}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

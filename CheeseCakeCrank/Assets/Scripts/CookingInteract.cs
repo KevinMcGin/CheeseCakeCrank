@@ -29,11 +29,16 @@ public class CookingInteract : MonoBehaviour {
         {
             if (Input.GetAxis("Interact") > 0)
             {
-                prop = col.gameObject.GetComponent<CookingProp>();
-                if (prop.Interact(ref GetComponent<Inventory>().items))
+                CookingProp propLocal = col.gameObject.GetComponent<CookingProp>();
+                if (propLocal.Interact(ref GetComponent<Inventory>().items))
                 {
+                    prop = propLocal;
                     interactionTimer.StartTimer(prop.GetTimer());
                     GetComponent<PlayerController>().setInteracting(true);
+
+                    GetComponent<PlayerController>().SetHolding(false);
+
+                    GetComponent<Inventory>().RemoveItem();
                 }
             }
         }
