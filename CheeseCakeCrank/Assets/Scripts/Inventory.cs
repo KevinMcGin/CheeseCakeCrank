@@ -31,11 +31,11 @@ public class Inventory : MonoBehaviour {
         itemRenderer.GetComponent<Pickup>().item = items[0];
         itemRenderer.AddComponent<BoxCollider>();
         itemRenderer.GetComponent<BoxCollider>().isTrigger = true;
-        itemRenderer.GetComponent<SpriteRenderer>().sortingOrder = -1;
         foreach(SpriteRenderer s in itemRenderer.GetComponentsInChildren<SpriteRenderer>())
         {
-            s.sortingOrder = 0;
+            s.sortingOrder = 1;
         }
+        itemRenderer.GetComponent<SpriteRenderer>().sortingOrder = 0;
 
         itemRenderer.tag = "PickUp";
 
