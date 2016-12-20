@@ -4,7 +4,11 @@ using System.Collections;
 public class Main : MonoBehaviour {
 
     public GameObject jehovah;
-    public Phone phone; 
+    public Phone phone;
+    public Dog dog;
+
+    float minWaitDistraction = 15;
+    float maxWaitDistraction = 20;
 
 	// Use this for initialization
 	void Start ()
@@ -14,12 +18,15 @@ public class Main : MonoBehaviour {
 
     IEnumerator Distractions()
     {
-        yield return new WaitForSeconds(Random.Range(5, 8));
         while (true)
         {
+            yield return new WaitForSeconds(Random.Range(minWaitDistraction, maxWaitDistraction));
             //Phone
             PhoneDistraction();
-            yield return new WaitForSeconds(Random.Range(5,12));
+            yield return new WaitForSeconds(Random.Range(minWaitDistraction, maxWaitDistraction));
+            //Dog poo
+            DogDistraction();
+            yield return new WaitForSeconds(Random.Range(minWaitDistraction, maxWaitDistraction));
             //Jehovah
             JehovahDistraction();
         }
@@ -36,6 +43,10 @@ public class Main : MonoBehaviour {
     }
     void PhoneDistraction()
     {
-        phone.Ring();
+        StartCoroutine(phone.Ring());
+    }
+    void DogDistraction()
+    {
+        dog.Shit();
     }
 }

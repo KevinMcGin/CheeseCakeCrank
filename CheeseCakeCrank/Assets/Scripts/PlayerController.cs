@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour {
     float damp = .9f * 60f;
 
     bool interacting;
+    Inventory invent;
 
 	// Use this for initialization
 	void Start ()
     {
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        invent = GetComponent<Inventory>();
 
         anim.SetBool("Left", false);
         anim.SetBool("Right", false);
@@ -51,6 +53,7 @@ public class PlayerController : MonoBehaviour {
         anim.SetTrigger(Animator.StringToHash("StandingFront"));
         if (Input.GetAxis("Horizontal") > 0)
         {
+            invent.RightMoving();
             rigid.AddForce(Vector3.right * accel);
             rigid.velocity = new Vector3(rigid.velocity.x,0,0);
             anim.SetBool("Left", false);
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
+            invent.LeftMoving();
             rigid.AddForce(Vector3.left * accel);
             rigid.velocity = new Vector3(rigid.velocity.x, 0, 0);
             anim.SetBool("Left", true);
@@ -71,6 +75,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetAxis("Vertical") > 0)
         {
+            invent.UpMoving();
             rigid.AddForce(Vector3.up * accel);
             rigid.velocity = new Vector3(0, rigid.velocity.y, 0);
             anim.SetBool("Left", false);
@@ -81,6 +86,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetAxis("Vertical") < 0)
         {
+            invent.DownMoving();
             rigid.AddForce(Vector3.down * accel);
             rigid.velocity = new Vector3(0, rigid.velocity.y, 0);
             anim.SetBool("Left", false);
@@ -105,6 +111,10 @@ public class PlayerController : MonoBehaviour {
     public void setInteracting(bool i)
     {
         interacting = i;
+    }
+    public bool getInteracting()
+    {
+        return interacting;
     }
 
     public void SetHolding(bool holding)
