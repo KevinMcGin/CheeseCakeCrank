@@ -51,6 +51,7 @@ public class Phone : MonoBehaviour {
                 //call cops
                 Rigidbody police = Instantiate(policemanPrefab);
                 police.GetComponent<Policeman>().PhoneComplain();
+                stateThis = state.idle;
             }
 
         }
