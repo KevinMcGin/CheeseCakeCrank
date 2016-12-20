@@ -22,6 +22,7 @@ public class CookingPropStay : CookingProp {
                 stateThis = state.cookingPause;
                 count.Pause();
                 playerController.setInteracting(false);
+                source.Stop();
             }
         }       
     }
@@ -33,6 +34,7 @@ public class CookingPropStay : CookingProp {
             count.Continue();
             playerController.setInteracting(true);
             interactButtonReleased = false;
+            source.Play();
         }
     }
 

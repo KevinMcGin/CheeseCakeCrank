@@ -7,6 +7,9 @@ public class CookingPropGo : CookingProp
     public float timerBurnt;
     CountDown countBurnt;
 
+    public AudioClip startSound;
+    public AudioClip endSound;
+
     protected override void Start()
     {
         countBurnt = new CountDown();
@@ -22,7 +25,7 @@ public class CookingPropGo : CookingProp
             {
                 stateThis = state.cooked;
                 count = new CountDown();
-                countBurnt.StartTimer(timerBurnt - timer);
+                countBurnt.StartTimer(timerBurnt);
                 timerText.GetComponent<Text>().color = Color.red;
             }
         }
@@ -37,6 +40,7 @@ public class CookingPropGo : CookingProp
         else if (stateThis == state.burnt)
         {
             timerText.GetComponent<Text>().text = "BURNT!!";
+            FindObjectOfType<TimerGame>().GameLost();
         }
     }
     public override void TakeCake()
@@ -44,10 +48,11 @@ public class CookingPropGo : CookingProp
         if(stateThis == state.cooked)
         {
             FinishInteracting();
+            source.PlayOneShot(endSound);
         }
     }
     protected override void ChildStart()
     {
-
+        source.PlayOneShot(startSound);
     }
 }

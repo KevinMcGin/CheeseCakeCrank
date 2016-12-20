@@ -18,11 +18,16 @@ public class Inventory : MonoBehaviour {
     Vector3 sideDist;
     dir dirThis;
 
+    AudioSource source;
+    public AudioClip PickUpSound;
+    public AudioClip PutDownSound;
+    public AudioClip PooSound;
+
     // Use this for initialization
     void Start ()
     {
         sideDist = new Vector3(1.7f, 1.1f);
-
+        source = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -36,8 +41,19 @@ public class Inventory : MonoBehaviour {
     public void DropItem()
     {
         itemRenderer.transform.parent = null;
-        itemRenderer.AddComponent<Pickup>();
-        itemRenderer.GetComponent<Pickup>().item = items[0];
+        if (items[0] == "Shit")
+        {
+            itemRenderer.GetComponent<ShitPickup>().enabled = true;
+            source.clip = PooSound;
+            source.Play();
+        }
+        else
+        {
+            itemRenderer.AddComponent<Pickup>();
+            itemRenderer.GetComponent<Pickup>().item = items[0];
+            source.clip = PutDownSound;
+            source.Play();
+        }
         itemRenderer.AddComponent<BoxCollider>();
         itemRenderer.GetComponent<BoxCollider>().isTrigger = true;
         foreach(SpriteRenderer s in itemRenderer.GetComponentsInChildren<SpriteRenderer>())
@@ -59,6 +75,7 @@ public class Inventory : MonoBehaviour {
         else if (items[0] == "LemonToppedToCool")
         {
             itemRenderer.transform.FindChild("Biscuit").GetComponent<CoolCake>().PutDown();
+            FindObjectOfType<Instruction>().GetCake();
         }
         items.Remove(items[0]);
 
@@ -115,6 +132,21 @@ public class Inventory : MonoBehaviour {
             else if(itemName == "Lemon")
             {
                 FindObjectOfType<Instruction>().FryLemon();
+            }
+            else if (itemName == "LemonToppedToCool")
+            {
+                FindObjectOfType<Instruction>().DropCoolCake();
+            }
+
+            if (itemName == "Shit")
+            {
+                source.clip = PooSound;
+                source.Play();
+            }
+            else
+            {
+                source.clip = PutDownSound;
+                source.Play();
             }
 
             return true;

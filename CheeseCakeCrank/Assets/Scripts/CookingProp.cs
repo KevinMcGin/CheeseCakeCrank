@@ -8,6 +8,9 @@ public class CookingProp : MonoBehaviour {
     public float timer;
     protected CountDown count;
 
+    public AudioClip interactSound;
+    protected AudioSource source;
+
     public string[] itemsNeeded;
 
     public string[] itemsReturn;
@@ -27,6 +30,9 @@ public class CookingProp : MonoBehaviour {
 	// Use this for initialization
 	protected virtual void Start ()
     {
+        source = gameObject.AddComponent<AudioSource>();
+        source.clip = interactSound;
+        source.loop = true;
         count = new CountDown();
         stateThis = state.idle;
         playerController = FindObjectOfType<PlayerController>();
@@ -50,8 +56,8 @@ public class CookingProp : MonoBehaviour {
         return timer;
     }
 
-    public bool Interact(ref List<string> items)
-    {
+    public virtual bool Interact(ref List<string> items)
+    {        
         if(used || stateThis != state.idle)
         {
             return false;
@@ -76,6 +82,11 @@ public class CookingProp : MonoBehaviour {
         stateThis = state.cooking;
         timerText.SetActive(true);
 
+        if(interactSound)
+        {
+            source.Play();
+        }
+
         ChildStart();
         return true;
     }
@@ -90,6 +101,7 @@ public class CookingProp : MonoBehaviour {
         stateThis = state.idle;
         playerController.setInteracting(false);
         timerText.SetActive(false);
+        source.Stop();
         ChildFinish();
     }
 

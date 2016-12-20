@@ -19,7 +19,7 @@ public class CookingInteract : MonoBehaviour {
     {
         if(col.tag == "CookingInteraction")
         {
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("Interact") && !GetComponent<PlayerController>().getInteracting())
             {
                 CookingProp prop = col.gameObject.GetComponent<CookingProp>();
                 if (prop.Interact(ref GetComponent<Inventory>().items))

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Instruction : MonoBehaviour {
 
     public Text cookingText;
+    public Text distraciontText;
 
 	// Use this for initialization
 	void Start ()
@@ -18,6 +19,7 @@ public class Instruction : MonoBehaviour {
 	
 	}
     
+    //Cooking Instructions
     public void Blend()
     {
         cookingText.text = "Blend biscuits";
@@ -69,5 +71,35 @@ public class Instruction : MonoBehaviour {
     public void LemonOnCake()
     {
         cookingText.text = "Put lemon on cake";
+    }
+    public void DropCoolCake()
+    {
+        cookingText.text = "Drop cake to cool";
+    }
+    public void GetCake()
+    {
+        cookingText.text = "Eat cooled cake";
+    }
+
+    //Distractions Instructions
+    public void GetPhone()
+    {
+        distraciontText.GetComponent<Text>().text = "Answer phone";
+    }
+    public void GetDoor()
+    {
+        distraciontText.GetComponent<Text>().text = "Answer door";
+    }
+    public void PickUpDogShit()
+    {
+        distraciontText.GetComponent<Text>().text = "Pick up dog poo";
+    }
+    public void DogPooSink()
+    {
+        distraciontText.GetComponent<Text>().text = "Put dog poo in sink";
+    }
+    public void Police()
+    {
+        distraciontText.GetComponent<Text>().text = "Police are here";
     }
 }

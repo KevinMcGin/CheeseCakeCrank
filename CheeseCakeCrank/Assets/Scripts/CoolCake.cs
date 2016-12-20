@@ -24,12 +24,14 @@ public class CoolCake : CookingPropGo
         else if (stateThis == state.burnt)
         {
             timerText.GetComponent<Text>().text = "COLD!!";
+            FindObjectOfType<TimerGame>().GameLost();
         }
     }
 
 
     protected override void ChildFinish()
     {
+        FindObjectOfType<TimerGame>().GameWon();
         Destroy(this.gameObject);
     }
 

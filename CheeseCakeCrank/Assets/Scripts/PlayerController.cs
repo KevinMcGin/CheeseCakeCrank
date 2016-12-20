@@ -112,6 +112,10 @@ public class PlayerController : MonoBehaviour {
     {
         interacting = i;
     }
+    public bool getInteracting()
+    {
+        return interacting;
+    }
 
     public void SetHolding(bool holding)
     {

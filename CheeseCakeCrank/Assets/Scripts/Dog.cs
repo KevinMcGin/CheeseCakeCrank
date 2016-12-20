@@ -6,37 +6,33 @@ public class Dog : MonoBehaviour {
     enum DogState
     {
         Sitting1,
-        Sitting2,
-        SittingOutside,
-        Outside        
+        Sitting2  
     };
 
     public AudioClip shitSound;
+    public AudioClip barkSound;
+
+    AudioSource source;
 
     DogState state;
 
     CountDown timerMove = new CountDown();
-    CountDown timerOutside = new CountDown();
-    CountDown timerShit = new CountDown();
 
     float timeStay = 6;
-    float timeOutside = 15;
-    float timeShit = 5;
-
     float speed = 5;
+    float minWaitBark = 5;
+    float maxWaitBark = 15;
 
     public GameObject sit1;
     public GameObject sit2;
-    public GameObject sitOutside;
-    public GameObject outSide;
-
     public GameObject shit;
 
     // Use this for initialization
     void Start ()
     {
         timerMove.StartTimer(timeStay);
-        timerOutside.StartTimer(timeOutside);
+        source = gameObject.AddComponent<AudioSource>();
+        StartCoroutine(Bark());
     }
 	
 	// Update is called once per frame
@@ -50,54 +46,36 @@ public class Dog : MonoBehaviour {
         {
             transform.position = Vector3.MoveTowards(transform.position, sit2.transform.position, speed * Time.deltaTime);
         }
-        else if (state == DogState.SittingOutside)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, sitOutside.transform.position, speed * Time.deltaTime);
-        }
-        else if (state == DogState.Outside)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, outSide.transform.position, speed * Time.deltaTime);
-        }
 
-        if(state != DogState.SittingOutside && state != DogState.Outside)
+        if(timerMove.timerDone())
         {
-            if(timerOutside.timerDone())
+            timerMove.StartTimer(timeStay);
+            if (state == DogState.Sitting1)
             {
-                state = DogState.SittingOutside;
-                timerShit.StartTimer(timeShit);
+                state = DogState.Sitting2;
             }
-            else if(timerMove.timerDone())
-            {
-                timerMove.StartTimer(timeStay);
-                if (state == DogState.Sitting1)
-                {
-                    state = DogState.Sitting2;
-                }
-                else if (state == DogState.Sitting2)
-                {
-                    state = DogState.Sitting1;
-                }
-            }
-        }
-        else if(state == DogState.SittingOutside)
-        {
-            if (timerShit.timerDone())
+            else if (state == DogState.Sitting2)
             {
                 state = DogState.Sitting1;
-                timerMove.StartTimer(timeStay);
-                timerOutside.StartTimer(timeOutside);
-
-                //Take shit
-                GameObject shitObject = GameObject.Instantiate<GameObject>(shit);
-                shitObject.transform.position = transform.position;
-                GetComponent<AudioSource>().PlayOneShot(shitSound);
             }
         }
-
     }
 
-    public void GoOutside()
+    public void Shit()
     {
-        state = DogState.Outside;
+        //Take shit
+        GameObject shitObject = GameObject.Instantiate<GameObject>(shit);
+        shitObject.transform.position = transform.position;
+        source.PlayOneShot(shitSound);
+        FindObjectOfType<Instruction>().DogPooSink();
+    }
+
+    IEnumerator Bark()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(Random.Range(minWaitBark, maxWaitBark));
+            source.PlayOneShot(barkSound);
+        }
     }
 }
