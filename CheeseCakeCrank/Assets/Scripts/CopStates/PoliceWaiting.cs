@@ -7,7 +7,7 @@ namespace Assets.Scripts.CopStates
 {
     class PoliceWaiting : PoliceState
     {
-        public PoliceWaiting(Policeman p) : base(p)
+        public PoliceWaiting(Policeman p,MoveState state) : base(p, state)
         {
 
         }

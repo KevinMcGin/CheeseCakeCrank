@@ -7,13 +7,13 @@ namespace Assets.Scripts.CopStates
 {
     class PoliceRequestStatement : PoliceState
     {
-        public PoliceRequestStatement(Policeman p) : base(p)
+        public PoliceRequestStatement(Policeman p, MoveState state) : base(p, state)
         {
         }
 
         public override void DoState()
         {
-            police.state1 = new PoliceTakingStatement(police);
+            police.state = new PoliceTakingStatement(police, chaseState);
             police.StartCoroutine(police.TakeStatement());
         }
     }

@@ -13,7 +13,7 @@ namespace Assets.Scripts.JehovahStates
 
         public override void DoState()
         {
-            jeh.state1 = new JehovahCallingPolice(jeh);
+            jeh.state = new JehovahCallingPolice(jeh);
             jeh.StartCoroutine(jeh.CallPolice());
         }
     }

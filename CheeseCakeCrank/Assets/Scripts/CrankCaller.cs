@@ -13,14 +13,11 @@ public abstract class CrankCaller : MonoBehaviour {
     public GameObject doorstep;
     public Vector3 spawnPoint;
     public GameObject dialogueText;
-
-    // FIXME! Hacky solution on a hacky day. Do states properly with State Pattern another time
-    protected string state;
+    
 
     void Awake()
     {
         source = GetComponent<AudioSource>();
-        setState("arriving");
 
         dialogueText = transform.FindChild("DialogueText").gameObject;
         dialogueText.transform.SetParent(GameObject.Find("Canvas").transform, false);
@@ -41,6 +38,5 @@ public abstract class CrankCaller : MonoBehaviour {
     public void setState(string state)
     {
         Debug.Log(Time.time + ": " + state);
-        this.state = state;
     }
 }

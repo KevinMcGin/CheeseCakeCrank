@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using Assets.Scripts.CopStates;
+using Assets.Scripts.CopStates.ChaseStates;
 
 public class Policeman : CrankCaller
 {
@@ -16,14 +17,32 @@ public class Policeman : CrankCaller
     public string playerTag;
     public float statementDurationSeconds;
     public int currentDoorThumps;
-    public PoliceState state1;
+    public Transform[] goToPostitions;
+    public PlayerRoom roomOfPlayer;
+
+    public PoliceState state;
 
     // Use this for initialization
     public override void Start ()
     {
         base.Start();
         FindObjectOfType<Instruction>().Police();
-        state1 = new PoliceArriving(this);
+        state = new PoliceArriving(this,new ChaseRoom1(state));
+
+        roomOfPlayer = FindObjectOfType<PlayerRoom>();
+        goToPostitions = new Transform[roomOfPlayer.Rooms.Length];
+        for (int i = 0; i < roomOfPlayer.Rooms.Length;i++)
+        {
+            //Child of 1 and 3 has more accurate position, bit hacky
+            if (i != 1 && i != 3)
+            {
+                goToPostitions[i] = roomOfPlayer.Rooms[i].transform;
+            }
+            else
+            {
+                goToPostitions[i] = roomOfPlayer.Rooms[i].transform.GetChild(0);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -34,22 +53,22 @@ public class Policeman : CrankCaller
             dialogueText.transform.position = Camera.main.WorldToScreenPoint(transform.position) +
                 new Vector3(0, 100 * (float)Screen.height / (float)768);
         }
-        state1.DoState();
+        state.DoState();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(doorstepTag))
         {
-            state1.FirstArriving();
+            state.FirstArriving();
         }
         else if (other.CompareTag(playerTag))
         {
-            state1.StartStatement();
+            state.StartStatement();
         }
         else if (other.CompareTag(spawnPointTag))
         {
-            state1.Leave();
+            state.Die();
         }
     }
 
@@ -71,10 +90,10 @@ public class Policeman : CrankCaller
         yield return new WaitForSeconds(waitSecondsBetweenDoorThumpAttempts);
         if (currentDoorThumps < numDoorThumpsToAttempt)
         {
-            state1 = new PoliceThumpingDoor(this);
+            state = new PoliceThumpingDoor(this,state.chaseState);
         }
         else
-            state1 = new PoliceSmashingState(this);
+            state = new PoliceSmashingState(this,state.chaseState);
     }
 
     public IEnumerator TakeStatement()
@@ -83,7 +102,7 @@ public class Policeman : CrankCaller
         source.clip = talkingSounds[Random.Range(0, talkingSounds.Length - 1)];
         source.Play();
         yield return new WaitForSeconds(statementDurationSeconds);
-        state1 = new PoliceDeparting(this);
+        state = new PoliceLeaveHouse(this, state.chaseState);
         FindObjectOfType<PlayerController>().setInteracting(false);
         Destroy(dialogueText);
     }

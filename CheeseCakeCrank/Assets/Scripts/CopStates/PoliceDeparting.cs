@@ -8,7 +8,7 @@ namespace Assets.Scripts.CopStates
 {
     class PoliceDeparting : PoliceState
     {
-        public PoliceDeparting(Policeman p) : base(p)
+        public PoliceDeparting(Policeman p, MoveState state) : base(p, state)
         {
         }
 
@@ -17,8 +17,8 @@ namespace Assets.Scripts.CopStates
             float step = police.speed * Time.deltaTime;
             police.transform.position = Vector3.MoveTowards(police.transform.position, police.spawnPoint, step);
         }
-
-        public override void Leave()
+        
+        public override void Die()
         {
             GameObject.Destroy(police.gameObject);
         }

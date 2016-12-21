@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.CopStates.ChaseStates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Assets.Scripts.CopStates
 {
     class PoliceArriving : PoliceState
     {
-        public PoliceArriving(Policeman p) : base(p)
+        public PoliceArriving(Policeman p, MoveState state) : base(p,state)
         {
         }
 
@@ -20,7 +21,7 @@ namespace Assets.Scripts.CopStates
 
         public override void FirstArriving()
         {
-            police.state1 = new PoliceThumpingDoor(police);
+            police.state = new PoliceThumpingDoor(police, chaseState);
         }
     }
 }

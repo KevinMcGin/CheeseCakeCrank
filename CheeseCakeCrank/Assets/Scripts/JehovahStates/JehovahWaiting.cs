@@ -21,11 +21,11 @@ namespace Assets.Scripts.JehovahStates
         {
             if (jeh.currentDoorbellPresses < jeh.numDoorbellPressesToAttempt)
             {
-                jeh.state1 = new JehovahPressingDoorbell(jeh);
+                jeh.state = new JehovahPressingDoorbell(jeh);
             }
             else
             {
-                jeh.state1 = new JehovahWorry(jeh);
+                jeh.state = new JehovahWorry(jeh);
             }
         }
 

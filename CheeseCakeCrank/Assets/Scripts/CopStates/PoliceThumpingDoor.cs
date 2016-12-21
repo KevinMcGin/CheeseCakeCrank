@@ -8,7 +8,7 @@ namespace Assets.Scripts.CopStates
 {
     class PoliceThumpingDoor : PoliceState
     {
-        public PoliceThumpingDoor(Policeman p) : base(p)
+        public PoliceThumpingDoor(Policeman p, MoveState state) : base(p, state)
         {
         }
 
@@ -16,7 +16,7 @@ namespace Assets.Scripts.CopStates
         {
             police.source.PlayOneShot(police.doorThumpSound, police.doorThumpVolume);
             police.currentDoorThumps++;
-            police.state1 = new PoliceWaiting(police);
+            police.state = new PoliceWaiting(police,chaseState);
             police.StartCoroutine(police.DealWithDoor());
         }
     }

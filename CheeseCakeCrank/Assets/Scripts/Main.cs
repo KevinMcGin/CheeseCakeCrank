@@ -8,7 +8,7 @@ public class Main : MonoBehaviour {
     public Dog dog;
 
     float minWaitDistraction = 15;
-    float maxWaitDistraction = 20;
+    float maxWaitDistraction = 15;
 
 	// Use this for initialization
 	void Start ()
@@ -20,7 +20,7 @@ public class Main : MonoBehaviour {
     {
         while (true)
         {
-            JehovahDistraction();
+            PhoneDistraction();
             yield return new WaitForSeconds(Random.Range(minWaitDistraction, maxWaitDistraction));
             //Phone
             PhoneDistraction();

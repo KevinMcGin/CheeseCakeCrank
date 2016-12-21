@@ -6,24 +6,21 @@ using UnityEngine;
 
 namespace Assets.Scripts.CopStates
 {
-    class PoliceChasingDoor : PoliceState
+    public class PoliceChasingDoor : PoliceState
     {
-        public PoliceChasingDoor(Policeman p) : base(p)
+        public PoliceChasingDoor(Policeman p, MoveState state) : base(p, state)
         {
-
+            chaseState = new ChaseStates.ChaseRoom1(this);
         }
 
         public override void DoState()
         {
-            float step = police.speed * Time.deltaTime;
-            // To Do: set this to actual player position
-            Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-            police.transform.position = Vector3.MoveTowards(police.transform.position, playerPos, step);
+            chaseState.ToPlayer();
         }
 
         public override void StartStatement()
         {
-            police.state1 = new PoliceRequestStatement(police);
+            police.state = new PoliceRequestStatement(police, chaseState);
         }
     }
 }

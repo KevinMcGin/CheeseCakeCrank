@@ -16,7 +16,7 @@ namespace Assets.Scripts.JehovahStates
             Instruction.FindObjectOfType<Instruction>().GetDoor();
             jeh.source.PlayOneShot(jeh.doorbellSound, jeh.doorbellVolume);
             jeh.currentDoorbellPresses++;
-            jeh.state1 = new JehovahWaiting(jeh);
+            jeh.state = new JehovahWaiting(jeh);
             jeh.StartCoroutine(jeh.DealWithDoor());
         }
     }

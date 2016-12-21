@@ -9,6 +9,11 @@ public class CakeCook : CookingPropStay {
         base.Update();
         timerText.transform.position = Camera.main.WorldToScreenPoint(transform.position) + new Vector3(0, 40 * (float)Screen.height / (float)768);
     }
+
+    protected override void ChildStart()
+    {
+        transform.parent.tag = "Untagged";
+    }
     protected override void ChildFinish()
     {
         Destroy(transform.parent.gameObject);
