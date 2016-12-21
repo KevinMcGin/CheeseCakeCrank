@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Assets.Scripts.JehovahStates;
 
 public class JehovahsWitness : CrankCaller
 {
@@ -14,15 +15,16 @@ public class JehovahsWitness : CrankCaller
     public Rigidbody policemanPrefab;
     public float policeCallDurationSeconds;
     public float TalkDurationSeconds;
+    public int currentDoorbellPresses;
 
-    // Private fields
-    private int currentDoorbellPresses;
+    public JehovahState state1;
 
     // Use this for initialization
     public override void Start()
     {
         base.Start();
         currentDoorbellPresses = 0;
+        state1 = new JehovahArriving(this);
     }
 
     // Update is called once per frame
@@ -34,53 +36,19 @@ public class JehovahsWitness : CrankCaller
                 new Vector3(0, 100 * (float)Screen.height / (float)768);
         }
 
-        // Horrific else ifs: implement state pattern please
-        if (state.CompareTo("arriving") == 0)
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, doorstep.transform.position, step);
-        }
-        else if (state.CompareTo("pressing doorbell") == 0)
-        {
-            source.PlayOneShot(doorbellSound, doorbellVolume);
-            currentDoorbellPresses++;
-            setState("waiting");
-            StartCoroutine(DealWithDoor());
-        }
-        else if (state.CompareTo("waiting") == 0)
-        {
-            // Do nothing!
-        }
-        else if (state.CompareTo("talking") == 0)
-        {
-
-        }
-        else if (state.CompareTo("passively aggressively worry") == 0)
-        {
-            setState("calling police");
-            StartCoroutine(CallPolice());
-        }
-        else if (state.CompareTo("calling police") == 0)
-        {
-            // Do nothing!
-        }
-        else if (state.CompareTo("departing") == 0)
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, spawnPoint, step);
-        }
+        state1.DoState();
     }
 
     public bool AtDoor()
     {
-        return state.CompareTo("waiting") == 0;
+        return state1.isDoor();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(doorstepTag) && state.CompareTo("arriving") == 0 )
         {
-            setState("pressing doorbell");
+            state1 = new JehovahPressingDoorbell(this);
             // Start timer and do other stuff here
             // Repeatedly press doorbell X number of times
             // Wait Y seconds been presses
@@ -90,45 +58,36 @@ public class JehovahsWitness : CrankCaller
         }
         else if (other.CompareTag(spawnPointTag))
         {
-            if (state.CompareTo("departing") == 0)
-                Destroy(dialogueText);
+            state1.Leave();
         }
     }
 
-    IEnumerator DealWithDoor()
+    public IEnumerator DealWithDoor()
     {
         yield return new WaitForSeconds(waitSecondsBetweenDoorbellAttempts);
-        if (state.CompareTo("waiting") == 0)
-        {
-            FindObjectOfType<Instruction>().GetDoor();
-            if (currentDoorbellPresses < numDoorbellPressesToAttempt)
-            {
-                setState("pressing doorbell");
-            }
-            else
-                setState("passively aggressively worry");
-        }
+        state1.FirstArriving();
     }
 
-    IEnumerator CallPolice()
+    public IEnumerator CallPolice()
     {
         yield return new WaitForSeconds(policeCallDurationSeconds);
         Rigidbody police = Instantiate(policemanPrefab);
         police.GetComponent<Policeman>().DoorComplain();
-        setState("departing");
+        state1 = new JehovahDeparting(this);
     }
+
     public IEnumerator Talk()
     {
         source.clip = talkingSounds[Random.Range(0, talkingSounds.Length - 1)];
         source.Play();
         FindObjectOfType<PlayerController>().setInteracting(true);
-        setState("talking");
+        state1 = new JehovahTalking(this);
         dialogueText.GetComponent<Text>().text = "Have you heard the good news?";
         dialogueText.SetActive(true);
 
         yield return new WaitForSeconds(TalkDurationSeconds);
         FindObjectOfType<PlayerController>().setInteracting(false);
         dialogueText.SetActive(false);
-        setState("departing");
+        state1 = new JehovahDeparting(this);
     }
 }

@@ -20,6 +20,7 @@ public class Main : MonoBehaviour {
     {
         while (true)
         {
+            JehovahDistraction();
             yield return new WaitForSeconds(Random.Range(minWaitDistraction, maxWaitDistraction));
             //Phone
             PhoneDistraction();

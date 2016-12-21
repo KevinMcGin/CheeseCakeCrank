@@ -5,12 +5,16 @@ using UnityEngine.SceneManagement;
 public class Pause : MonoBehaviour {
 
     public GameObject pause;
+    public GameObject won;
+    public GameObject lost;
+    public GameObject resumeButton;
     bool paused = false;
+    bool endGame = false;
 
 	// Use this for initialization
 	void Start ()
     {
-	
+        Time.timeScale = 1;
 	}
 	
 	// Update is called once per frame
@@ -41,6 +45,11 @@ public class Pause : MonoBehaviour {
     }
     public void UnPauseGame()
     {
+        if(endGame)
+        {
+            return;
+        }
+
         pause.SetActive(false);
         Time.timeScale = 1;
         paused = false;
@@ -51,11 +60,27 @@ public class Pause : MonoBehaviour {
     }
     public void Retry()
     {
+        endGame = false;
         UnPauseGame();
         SceneManager.LoadScene(1);
     }
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void Won()
+    {
+        endGame = true;
+        won.SetActive(true);
+        resumeButton.SetActive(false);
+        PauseGame();
+    }
+    public void Lost()
+    {
+        endGame = true;
+        lost.SetActive(true);
+        resumeButton.SetActive(false);
+        PauseGame();
     }
 }

@@ -9,12 +9,10 @@ public abstract class CrankCaller : MonoBehaviour {
     public string spawnPointTag;
     public string doorstepTag;
     public AudioClip[] talkingSounds;
-
-    // Protected fields
-    protected AudioSource source;
-    protected GameObject doorstep;
-    protected Vector3 spawnPoint;
-    protected GameObject dialogueText;
+    public AudioSource source;
+    public GameObject doorstep;
+    public Vector3 spawnPoint;
+    public GameObject dialogueText;
 
     // FIXME! Hacky solution on a hacky day. Do states properly with State Pattern another time
     protected string state;
