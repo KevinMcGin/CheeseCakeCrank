@@ -9,20 +9,15 @@ public abstract class CrankCaller : MonoBehaviour {
     public string spawnPointTag;
     public string doorstepTag;
     public AudioClip[] talkingSounds;
-
-    // Protected fields
-    protected AudioSource source;
-    protected GameObject doorstep;
-    protected Vector3 spawnPoint;
-    protected GameObject dialogueText;
-
-    // FIXME! Hacky solution on a hacky day. Do states properly with State Pattern another time
-    protected string state;
+    public AudioSource source;
+    public GameObject doorstep;
+    public Vector3 spawnPoint;
+    public GameObject dialogueText;
+    
 
     void Awake()
     {
         source = GetComponent<AudioSource>();
-        setState("arriving");
 
         dialogueText = transform.FindChild("DialogueText").gameObject;
         dialogueText.transform.SetParent(GameObject.Find("Canvas").transform, false);
@@ -43,6 +38,5 @@ public abstract class CrankCaller : MonoBehaviour {
     public void setState(string state)
     {
         Debug.Log(Time.time + ": " + state);
-        this.state = state;
     }
 }

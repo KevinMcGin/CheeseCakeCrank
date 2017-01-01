@@ -214,9 +214,10 @@ public class Inventory : MonoBehaviour {
 
     void OnTriggerStay(Collider col)
     {
-        if(Input.GetAxis("PickUp") > 0 &&
-            col.tag == "PickUp" && 
-            items.Count == 0)
+        if (Input.GetAxis("PickUp") > 0 &&
+            col.tag == "PickUp" &&
+            items.Count == 0 &&
+            !GetComponent<PlayerController>().getInteracting())
         {
             if(PickUpItem(col.GetComponent<Pickup>().item))
             {

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Assets.Scripts.CopStates;
+using Assets.Scripts.CopStates.ChaseStates;
 
 public class Policeman : CrankCaller
 {
@@ -14,15 +16,33 @@ public class Policeman : CrankCaller
     public float waitSecondsBetweenDoorThumpAttempts;
     public string playerTag;
     public float statementDurationSeconds;
+    public int currentDoorThumps;
+    public Transform[] goToPostitions;
+    public PlayerRoom roomOfPlayer;
 
-    // Private fields
-    private int currentDoorThumps;
+    public PoliceState state;
 
     // Use this for initialization
     public override void Start ()
     {
         base.Start();
         FindObjectOfType<Instruction>().Police();
+        state = new PoliceArriving(this,new ChaseRoom1(state));
+
+        roomOfPlayer = FindObjectOfType<PlayerRoom>();
+        goToPostitions = new Transform[roomOfPlayer.Rooms.Length];
+        for (int i = 0; i < roomOfPlayer.Rooms.Length;i++)
+        {
+            //Child of 1 and 3 has more accurate position, bit hacky
+            if (i != 1 && i != 3)
+            {
+                goToPostitions[i] = roomOfPlayer.Rooms[i].transform;
+            }
+            else
+            {
+                goToPostitions[i] = roomOfPlayer.Rooms[i].transform.GetChild(0);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -33,73 +53,22 @@ public class Policeman : CrankCaller
             dialogueText.transform.position = Camera.main.WorldToScreenPoint(transform.position) +
                 new Vector3(0, 100 * (float)Screen.height / (float)768);
         }
-
-        // Horrific else ifs: implement state pattern please
-        if (state.CompareTo("arriving") == 0)
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, doorstep.transform.position, step);
-        }
-        else if (state.CompareTo("thumping door") == 0)
-        {
-            source.PlayOneShot(doorThumpSound, doorThumpVolume);
-            currentDoorThumps++;
-            setState("waiting");
-            StartCoroutine(DealWithDoor());
-        }
-        else if (state.CompareTo("waiting") == 0)
-        {
-            // Do nothing!
-        }
-        else if (state.CompareTo("smashing door") == 0)
-        {
-            source.PlayOneShot(doorSmashSound, doorSmashVolume);
-            setState("chasing player");
-        }
-        else if (state.CompareTo("chasing player") == 0)
-        {
-            float step = speed * Time.deltaTime;
-            // To Do: set this to actual player position
-            Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, playerPos, step);
-        }
-        else if (state.CompareTo("request statement") == 0)
-        {
-            setState("taking statement");
-            StartCoroutine(TakeStatement());
-        }
-        else if (state.CompareTo("taking statement") == 0)
-        {
-            FindObjectOfType<PlayerController>().setInteracting(true);
-        }
-        else if(state.CompareTo("departing") == 0)
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, spawnPoint, step);
-        }
+        state.DoState();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(doorstepTag))
         {
-            if (state.CompareTo("arriving") == 0)
-                setState("thumping door");
+            state.FirstArriving();
         }
         else if (other.CompareTag(playerTag))
         {
-            if (state.CompareTo("chasing player") == 0)
-            {
-                setState("request statement");
-                // To Do: lock "other" player gameObject so that it has to wait while giving statement
-            }
+            state.StartStatement();
         }
         else if (other.CompareTag(spawnPointTag))
         {
-            if (state.CompareTo("departing") == 0)
-            {
-                Destroy(this.gameObject);
-            }
+            state.Die();
         }
     }
 
@@ -116,24 +85,24 @@ public class Policeman : CrankCaller
         dialogueText.GetComponent<Text>().text = "Answer your door, you could've been dead!";
     }
 
-    IEnumerator DealWithDoor()
+    public IEnumerator DealWithDoor()
     {
         yield return new WaitForSeconds(waitSecondsBetweenDoorThumpAttempts);
         if (currentDoorThumps < numDoorThumpsToAttempt)
         {
-            setState("thumping door");
+            state = new PoliceThumpingDoor(this,state.chaseState);
         }
         else
-            setState("smashing door");
+            state = new PoliceSmashingState(this,state.chaseState);
     }
 
-    IEnumerator TakeStatement()
+    public IEnumerator TakeStatement()
     {
         dialogueText.SetActive(true);
         source.clip = talkingSounds[Random.Range(0, talkingSounds.Length - 1)];
         source.Play();
         yield return new WaitForSeconds(statementDurationSeconds);
-        setState("departing");
+        state = new PoliceLeaveHouse(this, state.chaseState);
         FindObjectOfType<PlayerController>().setInteracting(false);
         Destroy(dialogueText);
     }

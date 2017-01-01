@@ -29,10 +29,12 @@ public class TimerGame : MonoBehaviour {
     public void GameWon()
     {
         inGame = false;
+        FindObjectOfType<Pause>().Won();
     }
 
     public void GameLost()
     {
-        inGame = false; 
+        inGame = false;
+        FindObjectOfType<Pause>().Lost();
     }
 }
